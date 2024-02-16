@@ -1,6 +1,8 @@
 import { logger } from '@/utils';
 import { AxiosInstance } from 'axios';
 
+import { HttpClient, HttpRequest, HttpResponse } from '../protocols';
+
 export class RequestAdapter implements HttpClient {
   constructor(private readonly axios: AxiosInstance) {
     this.axios.interceptors.response.use(undefined, (error) => {

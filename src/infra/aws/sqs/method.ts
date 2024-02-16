@@ -1,8 +1,9 @@
-import { CreateConsume } from '@/protocols/infra/aws';
 import { AWS, logger } from '@/utils';
 import { isJson } from '@/utils/text';
 import { SQSClient } from '@aws-sdk/client-sqs';
 import { Consumer } from 'sqs-consumer';
+
+import { CreateConsume } from '../protocols';
 
 export class Sqs implements CreateConsume {
   public sqs!: SQSClient;
