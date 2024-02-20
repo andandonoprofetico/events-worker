@@ -1,4 +1,4 @@
-import { add, format, getDay, subDays, getDate } from 'date-fns';
+import { add, format, getDay, subDays, getDate, isBefore } from 'date-fns';
 
 export const dayToAbbrev = {
   0: 'Dom',
@@ -28,4 +28,8 @@ export const getDayOfWeek = (date: Date) => {
 
 export const getDateNumber = (date: Date) => {
   return getDate(date);
+};
+
+export const isBeforeDate = (date: Date, dateCompare: Date) => {
+  return isBefore(date, dateCompare);
 };

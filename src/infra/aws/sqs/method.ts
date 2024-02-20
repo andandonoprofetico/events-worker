@@ -26,6 +26,12 @@ export class Sqs implements CreateConsume {
           return;
         }
 
+        logger.log({
+          level: 'info',
+          message: 'Message received',
+          payload: message,
+        });
+
         const json = isJson(message?.Body);
 
         if (!json.is) {
