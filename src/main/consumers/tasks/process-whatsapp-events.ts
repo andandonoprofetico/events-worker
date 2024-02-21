@@ -7,5 +7,8 @@ import { Options } from '../protocols';
 export const processWhatsAppEventsTask: Options = {
   enabled: true,
   queue: AWS.SQS.WHATSAPP_QUEUE,
-  handler: taskAdapter(whatsAppTasks.listSessionTask()),
+  handler: taskAdapter(
+    whatsAppTasks.listSessionTask(),
+    whatsAppTasks.listStepsTask(),
+  ),
 };

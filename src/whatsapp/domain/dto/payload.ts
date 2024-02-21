@@ -4,13 +4,21 @@ type Text = {
 };
 
 type File = {
-  type: string;
+  type: 'file';
   fileUrl: string;
   fileMimeType: string;
   fileName: string;
 };
 
-type Button = {};
+type Button = {
+  type: 'button';
+  id: string;
+};
+
+type List = {
+  type: 'list';
+  id: string;
+};
 
 export interface Payload {
   id: string;
@@ -30,7 +38,7 @@ export interface Payload {
       firstName: string;
       lastName: string;
     };
-    contents: Array<Text | File | Button>;
+    contents: Array<Text | File | Button | List>;
     timestamp: string;
   };
 }
