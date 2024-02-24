@@ -1,3 +1,4 @@
+import { ActionResult } from '@/whatsapp/domain/dto';
 import { Session, Step } from '@/whatsapp/domain/entities';
 
 export interface SharedState {
@@ -7,4 +8,5 @@ export interface SharedState {
     actual: Step | null;
     next: Step | null;
   };
+  actions?: ActionResult;
 }

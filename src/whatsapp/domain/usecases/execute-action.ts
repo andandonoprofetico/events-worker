@@ -1,4 +1,4 @@
-import { Action, Payload } from '../dto';
+import { ActionResult, Payload } from '../dto';
 import { Session, Step } from '../entities';
 
 export interface ExecuteAction {
@@ -12,5 +12,7 @@ export namespace ExecuteAction {
     step: Step;
   };
 
-  export type Result = Promise<Action[]>;
+  export type Result = Promise<{
+    actions: ActionResult;
+  }>;
 }

@@ -1,8 +1,8 @@
-export const actions = [
-  {
-    name: 'type',
-    handle: () => {},
-  },
-] as const;
+import { Action } from '../domain/dto';
 
-export type Actions = typeof actions;
+export type Actions = {
+  name: string;
+  handle: Action;
+}[];
+
+export const actions: Actions = [] as const;
