@@ -7,6 +7,15 @@ import { IDialogueRepository } from '../protocols';
 import { knexConnection } from './helper';
 
 export class DialogueRepository implements IDialogueRepository {
+  update(
+    params: IDialogueRepository.UpdateParam,
+    where: IDialogueRepository.UpdateWhere,
+  ): IDialogueRepository.UpdateResult {
+    return knexConnection('tb_whatsapp_dialogues')
+      .update(convertCamelCaseKeysToSnakeCase(params))
+      .where(convertCamelCaseKeysToSnakeCase(where));
+  }
+
   create(
     params: IDialogueRepository.CreateParams,
   ): IDialogueRepository.CreateResult {

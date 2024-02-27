@@ -10,5 +10,7 @@ export const processWhatsAppEventsTask: Options = {
   handler: taskAdapter(
     whatsAppTasks.listSessionTask(),
     whatsAppTasks.listStepsTask(),
+    whatsAppTasks.executeActionTask(),
+    whatsAppTasks.updateStepsTask(),
   ),
 };
