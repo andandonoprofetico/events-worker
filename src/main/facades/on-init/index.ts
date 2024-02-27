@@ -1,3 +1,7 @@
+import { makeBackendFacade } from '@/application/facades';
+
 export const makeOnInit = async () => {
-  await Promise.allSettled([]);
+  const backend = makeBackendFacade();
+
+  await Promise.allSettled([backend.init()]);
 };

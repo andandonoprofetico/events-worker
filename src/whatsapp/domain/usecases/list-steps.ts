@@ -1,5 +1,6 @@
+import { Session, Step } from '@/application/domain';
+
 import { Payload } from '../dto';
-import { Step, Session } from '../entities';
 
 export interface ListSteps {
   list(params: ListSteps.Params): ListSteps.Result;

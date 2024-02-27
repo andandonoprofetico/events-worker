@@ -1,4 +1,4 @@
-import { Step } from '@/whatsapp/domain/entities';
+import { Step } from '@/application/domain';
 
 export interface IStepRepository {
   listByStep: (name: string) => IStepRepository.ListByStepResult;

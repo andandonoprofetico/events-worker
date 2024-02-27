@@ -1,4 +1,4 @@
-import { Dialogue } from '@/whatsapp/domain/entities';
+import { Dialogue } from '@/application/domain';
 
 export interface IDialogueRepository {
   create: (

@@ -1,5 +1,6 @@
+import { Session, Step } from '@/application/domain';
+
 import { ActionResult, Payload } from '../dto';
-import { Session, Step } from '../entities';
 
 export interface ExecuteAction {
   execute(params: ExecuteAction.Params): ExecuteAction.Result;

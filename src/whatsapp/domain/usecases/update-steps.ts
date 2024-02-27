@@ -1,5 +1,6 @@
+import { Message, Session, Step } from '@/application/domain';
+
 import { Payload } from '../dto';
-import { Message, Session, Step } from '../entities';
 
 export interface UpdateSteps {
   update(params: UpdateSteps.Params): UpdateSteps.Result;

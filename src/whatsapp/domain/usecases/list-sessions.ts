@@ -1,5 +1,6 @@
+import { Session } from '@/application/domain';
+
 import { Payload } from '../dto';
-import { Session } from '../entities';
 
 export interface ListSession {
   list(params: ListSession.Params): ListSession.Result;

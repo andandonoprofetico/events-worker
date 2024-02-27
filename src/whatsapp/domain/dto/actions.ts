@@ -1,4 +1,5 @@
-import { Step, Session } from '../entities';
+import { Session, Step } from '@/application/domain';
+
 import { Payload } from './payload';
 
 type ActionParams = {

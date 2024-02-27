@@ -1,5 +1,5 @@
+import { Message, Session, Step } from '@/application/domain';
 import { ActionResult } from '@/whatsapp/domain/dto';
-import { Message, Session, Step } from '@/whatsapp/domain/entities';
 
 export interface SharedState {
   traceId?: string;

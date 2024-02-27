@@ -1,4 +1,4 @@
-import { Session } from '@/whatsapp/domain/entities';
+import { Session } from '@/application/domain';
 
 export interface ISessionRepository {
   listByPhone: (
