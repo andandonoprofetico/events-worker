@@ -12,5 +12,6 @@ export const processWhatsAppEventsTask: Options = {
     whatsAppTasks.listStepsTask(),
     whatsAppTasks.executeActionTask(),
     whatsAppTasks.updateStepsTask(),
+    whatsAppTasks.sendMessagesTask(),
   ),
 };

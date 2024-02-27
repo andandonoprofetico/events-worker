@@ -22,6 +22,7 @@ export const ENCRYPTION = {
 
 export const API = {
   BACKEND_APP: process.env.ANDANDO_NO_PROFETICO_URL || '',
+  ZENVIA_APP: process.env.ZENVIA_URL || '',
 };
 
 export const DATABASE = {
@@ -51,12 +52,4 @@ export const ANDROID = {
 
 export const EXPO = {
   ACCESS_KEY: process.env.EXPO_ACCESS_KEY || '',
-};
-
-export const MAIL = {
-  USER: process.env.EMAIL_USER,
-  PASSWORD: process.env.EMAIL_PASSWORD,
-  LINKS: {
-    RESET_PASSWORD: process.env.EMAIL_RESET_PASSWORD_LINK || '',
-  },
 };
