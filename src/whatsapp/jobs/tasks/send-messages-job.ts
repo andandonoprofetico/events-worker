@@ -12,10 +12,15 @@ export class SendMessagesJob implements Task {
     next: Function,
   ): Task.Result {
     try {
+      if (!state.session) {
+        throw new Error('JOB_NOT_HAVE_REQUIRED_PARAMS');
+      }
+
       await this.sendMessages.send({
         traceId: state.traceId || 'NOT_CREATED',
         actions: state.actions?.length ? state.actions : [],
         messages: state.messages?.length ? state.messages : [],
+        session: state.session,
       });
 
       next();

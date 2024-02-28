@@ -1,4 +1,4 @@
-import { Message } from '@/application/domain';
+import { Message, Session } from '@/application/domain';
 
 import { ActionResult } from '../dto';
 
@@ -11,6 +11,7 @@ export namespace SendMessages {
     traceId: string;
     actions: ActionResult;
     messages: Message[];
+    session: Session;
   };
 
   export type Result = Promise<void>;

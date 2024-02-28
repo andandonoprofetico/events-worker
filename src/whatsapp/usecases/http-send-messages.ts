@@ -8,7 +8,7 @@ export class HttpSendMessages implements SendMessages {
   constructor(private readonly sendMessageHttp: SendMessageHttp) {}
 
   async send(params: SendMessages.Params): SendMessages.Result {
-    const { actions, messages } = params;
+    const { actions, messages, session } = params;
 
     const allMessages = actions.concat(
       messages.map((message) => ({
@@ -24,23 +24,24 @@ export class HttpSendMessages implements SendMessages {
       })),
     );
 
-    for await (const message of allMessages) {
-      try {
-        const formatMessage = whatsAppMessageFormatter(message);
+    try {
+      const formatMessage = whatsAppMessageFormatter({
+        messages: allMessages,
+        session,
+      });
 
-        await this.sendMessageHttp.post(formatMessage);
-      } catch (error) {
-        logger.log({
-          traceId: params.traceId,
-          level: 'error',
-          message: 'An error ocurred in send message to zenvia',
-          payload: message,
-          error: {
-            message: error.message,
-            stack: error.stack,
-          },
-        });
-      }
+      await this.sendMessageHttp.post(formatMessage);
+    } catch (error) {
+      logger.log({
+        traceId: params.traceId,
+        level: 'error',
+        message: 'An error ocurred in send message to zenvia',
+        payload: allMessages,
+        error: {
+          message: error.message,
+          stack: error.stack,
+        },
+      });
     }
   }
 }
