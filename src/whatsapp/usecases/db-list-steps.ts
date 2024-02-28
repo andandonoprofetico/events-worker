@@ -34,10 +34,11 @@ export class DbListSteps implements ListSteps {
     const currentStep = await this.stepRepository.listById(dialogue.stepId);
 
     if (
-      (typeMessage === 'list' || typeMessage === 'button') &&
+      typeMessage === 'text' &&
+      payload.message.contents[0].payload &&
       currentStep.redirect === 'multiple-response'
     ) {
-      const nextStepId = payload.message.contents[0].id;
+      const nextStepId = payload.message.contents[0].payload;
 
       const nextStep = await this.stepRepository.listByExternalId(nextStepId);
 

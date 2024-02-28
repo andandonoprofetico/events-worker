@@ -1,5 +1,6 @@
 type Text = {
   type: 'text';
+  payload: null;
   text: string;
 };
 
@@ -11,13 +12,9 @@ type File = {
 };
 
 type Button = {
-  type: 'button';
-  id: string;
-};
-
-type List = {
-  type: 'list';
-  id: string;
+  type: 'text';
+  payload: string;
+  text: string;
 };
 
 export interface Payload {
@@ -38,7 +35,7 @@ export interface Payload {
       firstName: string;
       lastName: string;
     };
-    contents: Array<Text | File | Button | List>;
+    contents: Array<Text | File | Button>;
     timestamp: string;
   };
 }
