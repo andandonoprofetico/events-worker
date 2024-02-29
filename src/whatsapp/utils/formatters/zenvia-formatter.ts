@@ -8,6 +8,26 @@ type Params = {
   session: Session;
 };
 
+const buildHeaderButton = (header?: string) => {
+  if (!header) {
+    return undefined;
+  }
+
+  const isUrl = header.startsWith('http');
+
+  if (isUrl) {
+    return {
+      type: 'file',
+      fileUrl: header,
+    };
+  }
+
+  return {
+    type: 'text',
+    text: header,
+  };
+};
+
 const formatMap = (message: ActionResult[number]) => {
   if (message.type === 'text') {
     return {
@@ -35,9 +55,9 @@ const formatMap = (message: ActionResult[number]) => {
   if (message.type === 'button') {
     return {
       type: message.type,
-      header: message.header,
+      header: buildHeaderButton(message.header),
       body: message.body,
-      footer: message.footer,
+      footer: message.footer || undefined,
       buttons: message.additionalFields,
     };
   }
@@ -45,9 +65,9 @@ const formatMap = (message: ActionResult[number]) => {
   return {
     type: 'file',
     fileUrl: message.fileUrl,
-    fileMimeType: message.fileMimeType,
-    fileCaption: message.fileName,
-    fileName: message.fileName,
+    fileMimeType: message.fileMimeType || undefined,
+    fileCaption: message.fileName || undefined,
+    fileName: message.fileName || undefined,
   };
 };
 

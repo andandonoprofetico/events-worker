@@ -1,6 +1,6 @@
 type Text = {
   type: 'text';
-  payload: null;
+  payload: undefined;
   text: string;
 };
 
