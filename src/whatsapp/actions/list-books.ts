@@ -1,6 +1,9 @@
 import { Action } from '../domain/dto';
+import { makeListBooksAction } from '../factories/actions';
 
 const listBooks: Action = async (params) => {
+  const { listBooks, externalService } = makeListBooksAction();
+
   return [
     {
       type: 'list',
