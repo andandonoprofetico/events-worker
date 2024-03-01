@@ -18,6 +18,16 @@ export class DbListSession implements ListSession {
       });
 
       if (isBeforeDate(new Date(), expiration)) {
+        await this.sessionRepository.update(
+          {
+            updatedAt: new Date(),
+            phone: params.message.from,
+          },
+          {
+            sessionId: session.sessionId,
+          },
+        );
+
         return session;
       }
 

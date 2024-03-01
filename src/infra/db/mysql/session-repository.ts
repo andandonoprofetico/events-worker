@@ -7,6 +7,15 @@ import { ISessionRepository } from '../protocols';
 import { knexConnection } from './helper';
 
 export class SessionRepository implements ISessionRepository {
+  update(
+    params: ISessionRepository.UpdateParams,
+    where: ISessionRepository.UpdateWhere,
+  ): ISessionRepository.UpdateResult {
+    return knexConnection('tb_whatsapp_sessions')
+      .update(convertCamelCaseKeysToSnakeCase(params))
+      .where(convertCamelCaseKeysToSnakeCase(where));
+  }
+
   delete(id: number): ISessionRepository.DeleteResult {
     return knexConnection('tb_whatsapp_sessions')
       .update({

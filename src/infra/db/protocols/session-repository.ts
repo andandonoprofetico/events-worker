@@ -8,6 +8,10 @@ export interface ISessionRepository {
     params: ISessionRepository.CreateParams,
   ) => ISessionRepository.CreateResult;
   delete: (id: number) => ISessionRepository.DeleteResult;
+  update: (
+    params: ISessionRepository.UpdateParams,
+    where: ISessionRepository.UpdateWhere,
+  ) => ISessionRepository.UpdateResult;
 }
 
 export namespace ISessionRepository {
@@ -23,4 +27,10 @@ export namespace ISessionRepository {
   export type CreateResult = Promise<number[]>;
 
   export type DeleteResult = Promise<number>;
+
+  export type UpdateParams = Partial<Omit<Session, 'sessionId'>>;
+
+  export type UpdateWhere = Partial<Session>;
+
+  export type UpdateResult = Promise<number>;
 }
