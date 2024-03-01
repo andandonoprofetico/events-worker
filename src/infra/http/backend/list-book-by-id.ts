@@ -1,18 +1,17 @@
 import { logger } from '@/utils';
 
 import { HttpClient } from '../protocols';
-import { ListBooksHttp } from './contracts';
+import { ListBookByIdHttp } from './contracts';
 
-export class ListBooksService implements ListBooksHttp {
+export class ListBookByIdService implements ListBookByIdHttp {
   constructor(private readonly httpClient: HttpClient) {}
 
-  async list(params: ListBooksHttp.Params): ListBooksHttp.Result {
-    const url = '/v1/products';
-    const queryParams = `status=active&limit=${params.limit}&page=${params.page}`;
+  async list(params: ListBookByIdHttp.Params): ListBookByIdHttp.Result {
+    const url = `/v1/products/${params.id}`;
     const method = 'GET';
 
     const response = await this.httpClient.request({
-      url: `${url}?${queryParams}`,
+      url,
       method,
       headers: {
         Authorization: `Bearer ${params.token}`,
@@ -21,14 +20,14 @@ export class ListBooksService implements ListBooksHttp {
 
     logger.log({
       level: 'info',
-      message: 'get all books in backend api',
+      message: 'get book in backend api',
       payload: response,
     });
 
     if (response.statusCode !== 200) {
-      return [];
+      return null;
     }
 
-    return response.body.payload.data;
+    return response.body.payload;
   }
 }

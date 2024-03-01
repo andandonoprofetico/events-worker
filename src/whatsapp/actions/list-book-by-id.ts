@@ -1,10 +1,42 @@
+import { castToMoney } from '@/utils';
+
 import { Action } from '../domain/dto';
+import { makeListBookByIdAction } from '../factories/actions';
 
 const listBookById: Action = async (params) => {
+  const message = params.payload.message.contents[0];
+  const isText = message.type === 'text';
+
+  if (!isText) {
+    return [];
+  }
+
+  const { listBookById, externalService } = makeListBookByIdAction();
+
+  const service = await externalService.listByNameAndCompany<{ token: string }>(
+    {
+      companyId: 1,
+      name: 'andando-no-profetico',
+    },
+  );
+
+  const book = await listBookById.list({
+    token: service.data.token,
+    id: message.payload || '',
+  });
+
+  if (!book) {
+    return [];
+  }
+
   return [
     {
       type: 'text',
-      body: '*TOP 50 SONHOS - E SEUS SIGNIFICADOS*\n\nOs sonhos falam muito sobre situações que estamos vivendo ou por que ainda passaremos, assim como podem representar coisas do passado que nos atormentam até hoje.\n\nR$ 45,00\n\nPara comprar acesso o link: https://www.profetaviniciusiracet.com.br/product-page/top-50-sonhos-e-seus-significados',
+      body: `*${book.product.name}*\n\n${
+        book.product.description
+      }\n\n${castToMoney(+book.product.value)}\n\nPara comprar acesso o link: ${
+        book.product.link
+      }`,
     },
   ];
 };
