@@ -1,7 +1,10 @@
 import { Action } from '../domain/dto';
 import { listBookById } from './list-book-by-id';
 import { listBooks } from './list-books';
-import { save } from './save';
+import { saveDream } from './save-dream';
+import { savePartnerName } from './save-partner-name';
+import { savePray } from './save-pray';
+import { saveTestimonial } from './save-testimonial';
 
 export type Actions = {
   name: string;
@@ -18,19 +21,19 @@ export const actions: Actions = [
     name: 'detail_book',
   },
   {
-    handle: save,
+    handle: savePray,
     name: 'save_pray',
   },
   {
-    handle: save,
+    handle: saveTestimonial,
     name: 'save_testimonial',
   },
   {
-    handle: save,
+    handle: saveDream,
     name: 'save_dream',
   },
   {
-    handle: save,
+    handle: savePartnerName,
     name: 'save_partner_name',
   },
 ] as const;
