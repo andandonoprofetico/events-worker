@@ -10,6 +10,7 @@ export class HttpExecuteAction implements ExecuteAction {
     if (!actionName) {
       return {
         actions: [],
+        continue: true,
       };
     }
 
@@ -18,13 +19,12 @@ export class HttpExecuteAction implements ExecuteAction {
     if (!action) {
       return {
         actions: [],
+        continue: true,
       };
     }
 
     const resultActions = await action.handle(params);
 
-    return {
-      actions: resultActions,
-    };
+    return resultActions;
   }
 }

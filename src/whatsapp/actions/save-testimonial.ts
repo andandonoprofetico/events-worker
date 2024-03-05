@@ -6,7 +6,10 @@ const saveTestimonial: Action = async (params) => {
   const isText = message.type === 'text';
 
   if (!isText) {
-    return [];
+    return {
+      actions: [],
+      continue: false,
+    };
   }
 
   const { sendMessage, externalService } = makeSendMessageAction();
@@ -18,13 +21,16 @@ const saveTestimonial: Action = async (params) => {
     },
   );
 
-  await sendMessage.post({
+  const result = await sendMessage.post({
     type: 'TESTIMONIALS',
     token: service.data.token,
-    text: `${params.session.payload.user}\n\n${message.text}`,
+    text: `Usuário: ${params.session.payload.user}\n\n${message.text}`,
   });
 
-  return [];
+  return {
+    actions: [],
+    continue: !!result,
+  };
 };
 
 export { saveTestimonial };

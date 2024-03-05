@@ -10,7 +10,7 @@ export class HttpSendMessages implements SendMessages {
   async send(params: SendMessages.Params): SendMessages.Result {
     const { actions, messages, session } = params;
 
-    const allMessages = actions.concat(
+    const allMessages = actions.actions.concat(
       messages.map((message) => ({
         type: message.type,
         additionalFields: message.additionalFields,

@@ -6,7 +6,10 @@ const savePartnerName: Action = async (params) => {
   const isText = message.type === 'text';
 
   if (!isText) {
-    return [];
+    return {
+      actions: [],
+      continue: false,
+    };
   }
 
   const formName = 'partner-name';
@@ -24,13 +27,16 @@ const savePartnerName: Action = async (params) => {
     },
   );
 
-  await sendForm.post({
+  const result = await sendForm.post({
     form: formName,
     body,
     token: service.data.token,
   });
 
-  return [];
+  return {
+    actions: [],
+    continue: !!result,
+  };
 };
 
 export { savePartnerName };

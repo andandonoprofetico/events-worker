@@ -1,6 +1,6 @@
 import { Message, Session, Step } from '@/application/domain';
 
-import { Payload } from '../dto';
+import { ActionResult, Payload } from '../dto';
 
 export interface UpdateSteps {
   update(params: UpdateSteps.Params): UpdateSteps.Result;
@@ -14,6 +14,7 @@ export namespace UpdateSteps {
       actual: Step | null;
       next: Step | null;
     };
+    actions: ActionResult;
   };
 
   export type Result = Promise<Message[]>;

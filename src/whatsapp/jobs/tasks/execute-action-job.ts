@@ -28,7 +28,7 @@ export class ExecuteActionJob implements Task {
       });
 
       setState({
-        actions: result.actions,
+        actions: result,
       });
 
       next();

@@ -18,23 +18,29 @@ const listBooks: Action = async () => {
   });
 
   if (!books.length) {
-    return [];
+    return {
+      actions: [],
+      continue: false,
+    };
   }
 
-  return [
-    {
-      type: 'list',
-      header: 'Livros 📚',
-      body: 'Trouxemos os melhores livros para você, selecione uma das opções caso deseje saber mais sobre ele.',
-      footer: 'Selecione uma opção',
-      button: 'Livros',
-      additionalFields: books.map((book, index) => ({
-        id: book.products.external_id,
-        title: `Livro ${index + 1}`,
-        description: book.products.name.substring(0, 72),
-      })),
-    },
-  ];
+  return {
+    actions: [
+      {
+        type: 'list',
+        header: 'Livros 📚',
+        body: 'Trouxemos os melhores livros para você, selecione uma das opções caso deseje saber mais sobre ele.',
+        footer: 'Selecione uma opção',
+        button: 'Livros',
+        additionalFields: books.map((book, index) => ({
+          id: book.products.external_id,
+          title: `Livro ${index + 1}`,
+          description: book.products.name.substring(0, 72),
+        })),
+      },
+    ],
+    continue: true,
+  };
 };
 
 export { listBooks };

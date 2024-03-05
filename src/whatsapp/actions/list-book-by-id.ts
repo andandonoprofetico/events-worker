@@ -8,7 +8,10 @@ const listBookById: Action = async (params) => {
   const isText = message.type === 'text';
 
   if (!isText) {
-    return [];
+    return {
+      actions: [],
+      continue: false,
+    };
   }
 
   const { listBookById, externalService } = makeListBookByIdAction();
@@ -26,19 +29,25 @@ const listBookById: Action = async (params) => {
   });
 
   if (!book) {
-    return [];
+    return {
+      actions: [],
+      continue: false,
+    };
   }
 
-  return [
-    {
-      type: 'text',
-      body: `*${book.product.name}*\n\n${
-        book.product.description
-      }\n\n${castToMoney(+book.product.value)}\n\nPara comprar acesso o link: ${
-        book.product.link
-      }`,
-    },
-  ];
+  return {
+    actions: [
+      {
+        type: 'text',
+        body: `*${book.product.name}*\n\n${
+          book.product.description
+        }\n\n${castToMoney(
+          +book.product.value,
+        )}\n\nPara comprar acesso o link: ${book.product.link}`,
+      },
+    ],
+    continue: true,
+  };
 };
 
 export { listBookById };

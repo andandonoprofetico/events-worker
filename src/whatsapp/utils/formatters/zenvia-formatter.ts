@@ -4,7 +4,7 @@ import { ActionResult } from '@/whatsapp/domain/dto';
 import { WHATSAPP } from '../constants';
 
 type Params = {
-  messages: ActionResult;
+  messages: ActionResult['actions'];
   session: Session;
 };
 
@@ -28,7 +28,7 @@ const buildHeaderButton = (header?: string) => {
   };
 };
 
-const formatMap = (message: ActionResult[number]) => {
+const formatMap = (message: Params['messages'][number]) => {
   if (message.type === 'text') {
     return {
       type: message.type,

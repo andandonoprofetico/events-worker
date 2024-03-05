@@ -14,6 +14,7 @@ export namespace ExecuteAction {
   };
 
   export type Result = Promise<{
-    actions: ActionResult;
+    actions: ActionResult['actions'];
+    continue: boolean;
   }>;
 }

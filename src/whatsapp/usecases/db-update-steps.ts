@@ -1,4 +1,8 @@
-import { IDialogueRepository, IMessageRepository } from '@/infra/db/protocols';
+import {
+  IDialogueRepository,
+  IMessageRepository,
+  IStepRepository,
+} from '@/infra/db/protocols';
 
 import { UpdateSteps } from '../domain/usecases';
 import { WHATSAPP, getResponseMessage } from '../utils';
@@ -7,14 +11,27 @@ export class DbUpdateSteps implements UpdateSteps {
   constructor(
     private readonly messageRepository: IMessageRepository,
     private readonly dialogueRepository: IDialogueRepository,
+    private readonly stepRepository: IStepRepository,
   ) {}
 
   async update(params: UpdateSteps.Params): UpdateSteps.Result {
-    const { payload, session, step } = params;
+    const { payload, session, step, actions } = params;
 
     if (!step.next) {
       const messages = await this.messageRepository.listByStep(
         WHATSAPP.STEP_NOT_FOUND,
+      );
+
+      return messages;
+    }
+
+    if (!actions.continue) {
+      const errorStep = await this.stepRepository.listByExternalId(
+        step.actual?.error || '',
+      );
+
+      const messages = await this.messageRepository.listByStep(
+        errorStep.stepId,
       );
 
       return messages;
