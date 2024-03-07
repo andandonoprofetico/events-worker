@@ -3,6 +3,7 @@ import {
   IMessageRepository,
   IStepRepository,
 } from '@/infra/db/protocols';
+import { logger } from '@/utils';
 
 import { UpdateSteps } from '../domain/usecases';
 import { WHATSAPP, getResponseMessage } from '../utils';
@@ -18,6 +19,12 @@ export class DbUpdateSteps implements UpdateSteps {
     const { payload, session, step, actions } = params;
 
     if (!step.next) {
+      logger.log({
+        level: 'warn',
+        message: 'Step not found by message',
+        payload,
+      });
+
       const messages = await this.messageRepository.listByStep(
         WHATSAPP.STEP_NOT_FOUND,
       );
@@ -26,6 +33,13 @@ export class DbUpdateSteps implements UpdateSteps {
     }
 
     if (!actions.continue) {
+      logger.log({
+        level: 'warn',
+        message: 'Action not permitted to continue',
+        payload,
+        actions,
+      });
+
       const errorStep = await this.stepRepository.listByExternalId(
         step.actual?.error || '',
       );

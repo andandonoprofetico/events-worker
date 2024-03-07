@@ -1,6 +1,8 @@
 import { Action } from '../domain/dto';
 import { listBookById } from './list-book-by-id';
 import { listBooks } from './list-books';
+import { listEventById } from './list-event-by-id';
+import { listEvents } from './list-events';
 import { saveDream } from './save-dream';
 import { savePartnerName } from './save-partner-name';
 import { savePray } from './save-pray';
@@ -35,5 +37,13 @@ export const actions: Actions = [
   {
     handle: savePartnerName,
     name: 'save_partner_name',
+  },
+  {
+    handle: listEvents,
+    name: 'list_events',
+  },
+  {
+    handle: listEventById,
+    name: 'detail_event',
   },
 ] as const;
