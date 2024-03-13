@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: andandonoprofetico
+  ECR_REPOSITORY: andandonoprofetico-events
   ECS_CLUSTER: cluster-anp
 
 permissions:
@@ -66,14 +66,14 @@ jobs:
 
       - name: Retrieve task definition
         run: |
-          aws ecs describe-task-definition --task-definition anp-events-worker-task --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition anp-events-task --query taskDefinition > task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: apn-events-worker
+          container-name: anp-events-worker
           image: ${{ needs.build.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
