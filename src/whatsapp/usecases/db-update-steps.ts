@@ -38,14 +38,15 @@ export class DbUpdateSteps implements UpdateSteps {
         message: 'Action not permitted to continue',
         payload,
         actions,
+        step,
       });
 
       const errorStep = await this.stepRepository.listByExternalId(
-        step.actual?.error || '',
+        step.next.error || '',
       );
 
       const messages = await this.messageRepository.listByStep(
-        errorStep.stepId,
+        errorStep.stepId || 1,
       );
 
       return messages;

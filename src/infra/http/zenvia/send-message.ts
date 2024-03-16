@@ -4,7 +4,7 @@ import { ZENVIA } from '@/whatsapp/utils';
 import { HttpClient } from '../protocols';
 import { SendMessageHttp } from './contracts';
 
-export class SendMessageService implements SendMessageHttp {
+export class SendMessageZenviaService implements SendMessageHttp {
   constructor(private readonly httpClient: HttpClient) {}
 
   async post(params: SendMessageHttp.Params): SendMessageHttp.Result {

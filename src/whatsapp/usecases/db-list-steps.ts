@@ -1,4 +1,5 @@
 import { IDialogueRepository, IStepRepository } from '@/infra/db/protocols';
+import { logger } from '@/utils';
 
 import { ListSteps } from '../domain/usecases';
 
@@ -32,6 +33,12 @@ export class DbListSteps implements ListSteps {
     }
 
     const currentStep = await this.stepRepository.listById(dialogue.stepId);
+
+    logger.log({
+      level: 'info',
+      message: 'Step current',
+      step: currentStep,
+    });
 
     if (
       typeMessage === 'text' &&

@@ -20,5 +20,7 @@ export const consumersSetup = async (sqs: Sqs) => {
       level: 'info',
       message: 'Graceful shutdown complete',
     });
+
+    process.exit(1);
   });
 };

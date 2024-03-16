@@ -28,7 +28,7 @@ export class SendMessageService implements SendMessageHttp {
       payload: response,
     });
 
-    if (response.statusCode !== 200) {
+    if (response.statusCode !== 201) {
       return null;
     }
 

@@ -16,9 +16,11 @@ export class SendMessagesJob implements Task {
         throw new Error('JOB_NOT_HAVE_REQUIRED_PARAMS');
       }
 
+      const actions = state.actions || { continue: true, actions: [] };
+
       await this.sendMessages.send({
         traceId: state.traceId || 'NOT_CREATED',
-        actions: state.actions?.length ? state.actions : [],
+        actions: state.actions ? state.actions : actions,
         messages: state.messages?.length ? state.messages : [],
         session: state.session,
       });

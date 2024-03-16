@@ -21,7 +21,8 @@ export class UpdateStepsJob implements Task {
       }
 
       if (!state.actions) {
-        throw new Error('JOB_NOT_HAVE_REQUIRED_PARAMS');
+        next();
+        return;
       }
 
       const messages = await this.updateSteps.update({

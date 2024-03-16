@@ -43,7 +43,7 @@ const listBookById: Action = async (params) => {
           book.product.description
         }\n\n${castToMoney(
           +book.product.value,
-        )}\n\nPara comprar acesso o link: ${book.product.link}`,
+        )}\n\nPara comprar acesse o link: ${book.product.link}`,
       },
     ],
     continue: true,
