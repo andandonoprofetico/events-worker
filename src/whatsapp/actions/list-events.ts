@@ -29,7 +29,7 @@ const listEvents: Action = async () => {
       {
         type: 'list',
         header: 'Eventos 📌',
-        body: 'Trouxemos os eventos disponíveis para você, selecione uma das opções caso deseje saber mais sobre ele.',
+        body: 'Estes são nossos próximos eventos.\n\nSelecione uma das opções e saiba mais:',
         footer: 'Selecione uma opção',
         button: 'Eventos',
         additionalFields: events.map((book, index) => ({

@@ -1,5 +1,6 @@
 import { IDialogueRepository, IStepRepository } from '@/infra/db/protocols';
 import { logger } from '@/utils';
+import { addInDate, isBeforeDate } from '@/utils/date';
 
 import { ListSteps } from '../domain/usecases';
 
@@ -8,6 +9,19 @@ export class DbListSteps implements ListSteps {
     private readonly dialogueRepository: IDialogueRepository,
     private readonly stepRepository: IStepRepository,
   ) {}
+
+  private async listInitialStep(type: 'text' | 'file'): ListSteps.Result {
+    const isFile = type === 'file';
+
+    const nextStep = await this.stepRepository.listByStep(
+      isFile ? 'file-other-number' : 'welcome',
+    );
+
+    return {
+      actual: null,
+      next: nextStep,
+    };
+  }
 
   async list(params: ListSteps.Params): ListSteps.Result {
     const { payload, session } = params;
@@ -20,16 +34,25 @@ export class DbListSteps implements ListSteps {
     });
 
     if (!dialogue) {
-      const isFile = typeMessage === 'file';
+      return this.listInitialStep(typeMessage);
+    }
 
-      const nextStep = await this.stepRepository.listByStep(
-        isFile ? 'file-other-number' : 'welcome',
+    const expiration = addInDate(new Date(dialogue.createdAt), {
+      minutes: 30,
+    });
+
+    if (isBeforeDate(new Date(), expiration)) {
+      await this.dialogueRepository.update(
+        {
+          updatedAt: new Date(),
+          status: 'expired',
+        },
+        {
+          dialoguesId: dialogue.dialoguesId,
+        },
       );
 
-      return {
-        actual: null,
-        next: nextStep,
-      };
+      return this.listInitialStep(typeMessage);
     }
 
     const currentStep = await this.stepRepository.listById(dialogue.stepId);

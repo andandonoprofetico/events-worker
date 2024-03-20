@@ -29,7 +29,7 @@ const listBooks: Action = async () => {
       {
         type: 'list',
         header: 'Livros 📚',
-        body: 'Trouxemos os melhores livros para você, selecione uma das opções caso deseje saber mais sobre ele.',
+        body: 'Aqui estão os nossos livros.\n\nSelecione uma das opções e acesse o profético:',
         footer: 'Selecione uma opção',
         button: 'Livros',
         additionalFields: books.map((book, index) => ({
