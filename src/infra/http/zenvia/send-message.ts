@@ -23,6 +23,7 @@ export class SendMessageZenviaService implements SendMessageHttp {
 
     logger.log({
       level: 'info',
+      request: body,
       status: response.statusCode,
       message: 'send message to zenvia api',
       payload: response,

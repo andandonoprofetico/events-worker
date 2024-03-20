@@ -17,6 +17,13 @@ export class ExecuteActionJob implements Task {
       }
 
       if (!state.steps?.next) {
+        setState({
+          actions: {
+            actions: [],
+            continue: false,
+          },
+        });
+
         next();
         return;
       }

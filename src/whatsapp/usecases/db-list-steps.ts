@@ -41,7 +41,7 @@ export class DbListSteps implements ListSteps {
       minutes: 30,
     });
 
-    if (isBeforeDate(new Date(), expiration)) {
+    if (isBeforeDate(expiration, new Date())) {
       await this.dialogueRepository.update(
         {
           updatedAt: new Date(),
